@@ -211,6 +211,7 @@ func (s *DNSServer) Spread(ctx context.Context, lg *lab3.Log) (*lab3.Message, er
 
 //GetIP server side
 func (s *DNSServer) GetIP(ctx context.Context, cmd *lab3.Command) (*lab3.PageInfo, error) {
+	log.Println(vectors)
 	for _, s := range vectors {
 		if s.Name == cmd.Domain {
 			input, err := ioutil.ReadFile("ZF/" + cmd.Domain)
