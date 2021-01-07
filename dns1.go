@@ -146,7 +146,9 @@ func (s *DNSServer) Action(ctx context.Context, cmd *lab3.Command) (*lab3.Vector
 		for i, line := range lines {
 			if strings.Contains(line, cmd.Name) {
 				if cmd.Option == "Name" {
-					lines[i] = cmd.Parameter + cmd.Domain + " IN A " + cmd.Ip
+					local := strings.Split(line, " ")
+					localIP := local[len(local)-1]
+					lines[i] = cmd.Parameter + cmd.Domain + " IN A " + localIP
 				} else {
 					lines[i] = cmd.Name + cmd.Domain + " IN A " + cmd.Parameter
 				}
