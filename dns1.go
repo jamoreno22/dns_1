@@ -96,7 +96,7 @@ func isError(err error) bool {
 // Action server side
 func (s *DNSServer) Action(ctx context.Context, cmd *lab3.Command) (*lab3.VectorClock, error) {
 
-	var registerLog, err3 = os.OpenFile("log", os.O_RDWR, 0644)
+	var registerLog, err3 = os.OpenFile("log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if isError(err3) {
 		fmt.Printf("File opening error")
 
@@ -130,7 +130,7 @@ func (s *DNSServer) Action(ctx context.Context, cmd *lab3.Command) (*lab3.Vector
 			fmt.Printf("File writing error")
 
 		}
-		_, err = registerLog.WriteString("Create " + cmd.Name + "." + cmd.Domain)
+		_, err = registerLog.WriteString("Create " + cmd.Name + "." + cmd.Domain + "\n")
 		if isError(err) {
 			fmt.Printf("log writing error")
 		}
