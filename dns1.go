@@ -125,7 +125,7 @@ func (s *DNSServer) Action(ctx context.Context, cmd *lab3.Command) (*lab3.Vector
 		}
 		defer file.Close()
 
-		_, err = file.WriteString(cmd.Name + cmd.Domain + " IN A " + cmd.Ip)
+		_, err = file.WriteString(cmd.Name + cmd.Domain + " IN A " + cmd.Ip + "\n")
 		if isError(err) {
 			fmt.Printf("File writing error")
 
