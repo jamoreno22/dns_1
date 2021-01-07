@@ -118,7 +118,7 @@ func (s *DNSServer) Action(ctx context.Context, cmd *lab3.Command) (*lab3.Vector
 			defer file.Close()
 		}
 
-		var file, err2 = os.OpenFile("ZF/"+cmd.Domain, os.O_RDWR, 0644)
+		var file, err2 = os.OpenFile("ZF/"+cmd.Domain, os.O_APPEND, 0644)
 		if isError(err2) {
 			fmt.Printf("File opening error")
 
