@@ -130,7 +130,7 @@ func (s *DNSServer) Action(ctx context.Context, cmd *lab3.Command) (*lab3.Vector
 			fmt.Printf("File writing error")
 
 		}
-		_, err = registerLog.WriteString("Create " + cmd.Option + " " + cmd.Parameter)
+		_, err = registerLog.WriteString("Create " + cmd.Name + "." + cmd.Domain)
 		if isError(err) {
 			fmt.Printf("log writing error")
 		}
