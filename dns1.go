@@ -111,7 +111,6 @@ func (s *DNSServer) Action(ctx context.Context, cmd *lab3.Command) (*lab3.Vector
 		// create file if not exists
 		if os.IsNotExist(err) {
 			var file, err1 = os.Create("ZF/" + cmd.Domain)
-			vectors = append(vectors, &lab3.VectorClock{Name: cmd.Domain, Rv1: 0, Rv2: 0, Rv3: 0})
 			if isError(err1) {
 				fmt.Printf("File creation error")
 			}
@@ -134,6 +133,7 @@ func (s *DNSServer) Action(ctx context.Context, cmd *lab3.Command) (*lab3.Vector
 		if isError(err) {
 			fmt.Printf("log writing error")
 		}
+		vectors = append(vectors, &lab3.VectorClock{Name: cmd.Domain, Rv1: 0, Rv2: 0, Rv3: 0})
 
 	case 2: //Update
 		input, err := ioutil.ReadFile("ZF/" + cmd.Domain)
