@@ -8,6 +8,7 @@ import (
 	"net"
 	"os"
 	"strings"
+	"time"
 
 	lab3 "github.com/jamoreno22/dns_1/pkg/proto"
 	"google.golang.org/grpc"
@@ -17,6 +18,8 @@ import (
 type DNSServer struct {
 	lab3.UnimplementedDNSServer
 }
+
+//clock  := time.Now()
 
 func main() {
 
@@ -34,6 +37,7 @@ func main() {
 	if err := grpcDNSServer.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %s", err)
 	}
+
 }
 
 func isError(err error) bool {
@@ -127,5 +131,26 @@ func (s *DNSServer) Action(ctx context.Context, cmd *lab3.Command) (*lab3.Vector
 //Spread server side
 func (s *DNSServer) Spread(ctx context.Context, lg *lab3.Log) (*lab3.Message, error) {
 
+	// Client connections to anothers dns servers
+
+	for {
+		time.Sleep(5 * time.Minute)
+		break
+		//send log to dns servers
+		//check vector clocks
+		//erase log
+	}
 	return &lab3.Message{Text: "asdf"}, nil
 }
+
+//GetIP server side
+func (s *DNSServer) GetIP(ctx context.Context, cmd *lab3.Command) (*lab3.PageInfo, error) {
+
+	return &lab3.PageInfo{}, nil
+}
+
+/*
+	Crear el archivo log para registrar los cambios en el servidor y añadirlo a una variable global
+	Añadir los relojes de vector de cada registro ZF
+	Solucionar el problema de las conexiones entre DNS sin llamar a la función desde un servidor no DNS
+*/
