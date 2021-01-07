@@ -213,7 +213,22 @@ func (s *DNSServer) Spread(ctx context.Context, lg *lab3.Log) (*lab3.Message, er
 func (s *DNSServer) GetIP(ctx context.Context, cmd *lab3.Command) (*lab3.PageInfo, error) {
 	for _, s := range vectors {
 		if s.Name == cmd.Domain {
-			return &lab3.PageInfo{PageIp: cmd.Ip, Rv: s, DnsIP: "10.10.28.17:8000"}, nil
+			input, err := ioutil.ReadFile("ZF/" + cmd.Domain)
+			if err != nil {
+				log.Fatalln(err)
+			}
+
+			lines := strings.Split(string(input), "\n")
+
+			var localIP string
+			for _, line := range lines {
+				if strings.Contains(line, cmd.Name) {
+					local := strings.Split(line, " ")
+					localIP = local[len(local)-1]
+
+				}
+			}
+			return &lab3.PageInfo{PageIp: localIP, Rv: s, DnsIP: "10.10.28.17:8000"}, nil
 		}
 	}
 	return &lab3.PageInfo{}, nil
