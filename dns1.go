@@ -193,7 +193,7 @@ func (s *DNSServer) Action(ctx context.Context, cmd *lab3.Command) (*lab3.Vector
 			fmt.Printf("log writing error")
 		}
 	}
-
+	log.Println(vectors)
 	for _, s := range vectors {
 		if s.Name == cmd.Domain {
 			s.Rv1++
