@@ -125,7 +125,7 @@ func (s *DNSServer) Action(ctx context.Context, cmd *lab3.Command) (*lab3.Vector
 		}
 		defer file.Close()
 
-		_, err = file.WriteString(cmd.Name + cmd.Domain + " IN A " + cmd.Ip + "\n")
+		_, err = file.WriteString(cmd.Name + "." + cmd.Domain + " IN A " + cmd.Ip + "\n")
 		if isError(err) {
 			fmt.Printf("File writing error")
 
@@ -148,9 +148,9 @@ func (s *DNSServer) Action(ctx context.Context, cmd *lab3.Command) (*lab3.Vector
 				if cmd.Option == "Name" {
 					local := strings.Split(line, " ")
 					localIP := local[len(local)-1]
-					lines[i] = cmd.Parameter + cmd.Domain + " IN A " + localIP
+					lines[i] = cmd.Parameter + "." + cmd.Domain + " IN A " + localIP
 				} else {
-					lines[i] = cmd.Name + cmd.Domain + " IN A " + cmd.Parameter
+					lines[i] = cmd.Name + "." + cmd.Domain + " IN A " + cmd.Parameter
 				}
 			}
 		}
@@ -205,7 +205,7 @@ func (s *DNSServer) Action(ctx context.Context, cmd *lab3.Command) (*lab3.Vector
 
 //Spread server side
 func (s *DNSServer) Spread(ctx context.Context, lg *lab3.Log) (*lab3.Message, error) {
-
+	log.Println("aquí sincronizaría mis nodos si tuviera consistencia")
 	return &lab3.Message{Text: "asdf"}, nil
 }
 
